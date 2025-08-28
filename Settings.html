@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings – Admin Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="Settings.css">
+</head>
+<body>
+  <div class="sidebar">
+    <h4>Admin</h4>
+    <a href="adminDashboard.html">Dashboard</a>
+    <a href="ManageUser.html">Manage Users</a>
+    <a href="ManageUser.html">Manage Events</a>
+    <a href="RegistrationDashboard.html">Registrations</a>
+    <a href="ReportsDashboard.html">Reports</a>
+    <a href="#">Settings</a>
+    <a href="#">Logout</a>
+  </div>
+  <div class="top-navbar">
+    <h5>Settings</h5>
+    <div>Welcome, Admin</div>
+  </div>
+  <div class="main-content">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card p-4">
+          <h5>Update Profile</h5>
+          <form>
+            <div class="mb-3">
+              <label for="name" class="form-label">Full Name</label>
+              <input type="text" class="form-control" id="name" placeholder="Enter full name" value="Admin User">
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" placeholder="Enter email" value="admin@example.com">
+            </div>
+            <div class="mb-3">
+              <label for="role" class="form-label">Role</label>
+              <input type="text" class="form-control" id="role" value="Administrator" disabled>
+            </div>
+            <button type="submit" class="btn btn-custom w-100">Update Profile</button>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card p-4">
+          <h5>Change Password</h5>
+          <form>
+            <div class="mb-3">
+              <label for="currentPassword" class="form-label">Current Password</label>
+              <input type="password" class="form-control" id="currentPassword" placeholder="Enter current password">
+            </div>
+            <div class="mb-3">
+              <label for="newPassword" class="form-label">New Password</label>
+              <input type="password" class="form-control" id="newPassword" placeholder="Enter new password">
+            </div>
+            <div class="mb-3">
+              <label for="confirmPassword" class="form-label">Confirm Password</label>
+              <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm new password">
+            </div>
+            <button type="submit" class="btn btn-custom w-100">Change Password</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
