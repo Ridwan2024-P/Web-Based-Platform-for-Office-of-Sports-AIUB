@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,19 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard – AIUB Sports</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="adminDashboard.css">
+  <link rel="stylesheet" href="/Web-Based Platform for Office of Sports – AIUB/views/Admin/adminDashboard.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <div class="sidebar">
     <h4>Admin</h4>
     <a href="#">Dashboard</a>
-    <a href="ManageUser.html">Manage Users</a>
-    <a href="ManageEvent.html">Manage Events</a>
-    <a href="RegistrationDashboard.html">Registrations</a>
-    <a href="ReportsDashboard.html">Reports</a>
-    <a href="Settings.html">Settings</a>
-    <a href="#">Logout</a>
+    <a href="/Web-Based Platform for Office of Sports – AIUB/views/Admin/ManageUser.html">Manage Users</a>
+    <a href="/Web-Based Platform for Office of Sports – AIUB/views/Admin/ManageEvent.html">Manage Events</a>
+    <a href="/Web-Based Platform for Office of Sports – AIUB/views/Admin/RegistrationDashboard.html">Registrations</a>
+    <a href="/Web-Based Platform for Office of Sports – AIUB/views/Admin/ReportsDashboard.html">Reports</a>
+    <a href="/Web-Based Platform for Office of Sports – AIUB/views/Admin/Settings.html">Settings</a>
+    <a href="/Web-Based Platform for Office of Sports – AIUB/index.php?action=logout">Logout</a>
   </div>
   <div class="top-navbar">
     <h5>Dashboard</h5>
