@@ -18,5 +18,10 @@ class RegisterController {
         } else {
             return "<div class='alert alert-danger'>❌ Error while registering!</div>";
         }
+        
     }
+    public function register(){
+   include __DIR__ . '/../views/register.php';
+    }
+    
 }

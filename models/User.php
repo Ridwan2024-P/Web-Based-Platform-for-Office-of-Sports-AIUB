@@ -25,4 +25,5 @@ class User {
                 VALUES ('$username', '$email', '$passwordHash', '$role', 1)";
         return $this->conn->query($sql);
     }
+    
 }

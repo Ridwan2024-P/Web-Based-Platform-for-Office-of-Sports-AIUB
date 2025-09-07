@@ -54,7 +54,7 @@
 
                     <div class="text-center mt-4 pt-2">
                         <button type="submit" name="login" class="btn btn-primary btn-lg w-100">Login</button>
-                        <p class="small fw-bold mt-3 mb-0 text-center">Don't have an account? <a href="views/register.php" class="link-danger">Register</a></p>
+                        <p class="small fw-bold mt-3 mb-0 text-center">Don't have an account? <a href="index.php?action=register" class="link-danger">Register</a></p>
                     </div>
                 </form>
             </div>
