@@ -31,7 +31,7 @@
 <div class="container">
     <div class="row justify-content-center align-items-center">
         <div class="col-md-9 col-lg-6 col-xl-5">
-            <img src="draw2.webpgit" class="img-fluid" alt="Sample image">
+            <img src="draw2.webp" class="img-fluid" alt="Sample image">
         </div>
         <div class="col-md-8 col-lg-6 col-xl-4">
             <div class="card p-4">
@@ -54,7 +54,7 @@
 
                     <div class="text-center mt-4 pt-2">
                         <button type="submit" name="login" class="btn btn-primary btn-lg w-100">Login</button>
-                        <p class="small fw-bold mt-3 mb-0 text-center">Don't have an account? <a href="register.php" class="link-danger">Register</a></p>
+                        <p class="small fw-bold mt-3 mb-0 text-center">Don't have an account? <a href="views/register.php" class="link-danger">Register</a></p>
                     </div>
                 </form>
             </div>

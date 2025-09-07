@@ -15,4 +15,14 @@ class User {
         $stmt->execute();
         return $stmt->get_result()->fetch_assoc();
     }
+
+    public function register($username, $email, $password, $role = "user") {
+        $username = $this->conn->real_escape_string($username);
+        $email = $this->conn->real_escape_string($email);
+        $passwordHash = password_hash($password, PASSWORD_BCRYPT);
+
+        $sql = "INSERT INTO users (username, email, password, role, status) 
+                VALUES ('$username', '$email', '$passwordHash', '$role', 1)";
+        return $this->conn->query($sql);
+    }
 }
