@@ -9,15 +9,15 @@
 </head>
 <body>
 <div class="sidebar">
-<h4>Admin</h4>
-<a href="index.php?action=dashboard">Dashboard</a>
-<a href="index.php?action=index">Manage Users</a>
-<a href="#">Manage Events</a>
-<a href="#">Registrations</a>
-<a href="#">Reports</a>
-<a href="#">Settings</a>
-<a href="#">Logout</a>
-</div>
+    <h4>Admin</h4>
+    <a href="index.php?action=dashboard">Dashboard</a>
+    <a href="index.php?action=manageUsers">Manage Users</a>
+    <a href="index.php?action=manageEvents">Manage Events</a>
+    <a href="index.php?action=manageRegistrations">Registrations</a>
+    <a href="index.php?action=reports">Reports</a>
+    <a href="/Web-Based Platform for Office of Sports – AIUB/views/Admin/Settings.html">Settings</a>
+    <a href="index.php?action=logout">Logout</a>
+  </div>
 <div class="top-navbar">
 <h5>Manage Users</h5>
 <div>Welcome, Admin</div>

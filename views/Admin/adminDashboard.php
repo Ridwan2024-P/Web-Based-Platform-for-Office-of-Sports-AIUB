@@ -12,14 +12,13 @@
 <body>
   <div class="sidebar">
     <h4>Admin</h4>
-    <a href="#">Dashboard</a>
+    <a href="index.php?action=dashboard">Dashboard</a>
     <a href="index.php?action=manageUsers">Manage Users</a>
-
-    <a href="/Web-Based Platform for Office of Sports – AIUB/views/Admin/ManageEvent.html">Manage Events</a>
+    <a href="index.php?action=manageEvents">Manage Events</a>
     <a href="index.php?action=manageRegistrations">Registrations</a>
-    <a href="/Web-Based Platform for Office of Sports – AIUB/views/Admin/ReportsDashboard.html">Reports</a>
+    <a href="index.php?action=reports">Reports</a>
     <a href="/Web-Based Platform for Office of Sports – AIUB/views/Admin/Settings.html">Settings</a>
-    <a href="/Web-Based Platform for Office of Sports – AIUB/index.php?action=logout">Logout</a>
+    <a href="index.php?action=logout">Logout</a>
   </div>
   <div class="top-navbar">
     <h5>Dashboard</h5>
