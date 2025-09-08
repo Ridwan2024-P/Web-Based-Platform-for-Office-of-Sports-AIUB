@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Manage Users – Admin Dashboard</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="/Web-Based Platform for Office of Sports – AIUB/views/Admin/ManageUser.css">
+<link rel="stylesheet" href="/Web-Based Platform for Office of Sports – AIUB/views/Admin/style.css">
 </head>
 <body>
 <div class="sidebar">
@@ -56,8 +56,6 @@
 <a href="index.php?action=delete&delete=<?= $row['id'] ?>" onclick="return confirm('Are you sure?')" class="btn btn-sm btn-danger btn-action">Delete</a>
 </td>
 </tr>
-
-<!-- Edit User Modal -->
 <div class="modal fade" id="editUserModal<?= $row['id'] ?>" tabindex="-1">
 <div class="modal-dialog">
 <div class="modal-content">
@@ -107,8 +105,6 @@
 </div>
 </div>
 </div>
-
-<!-- Add User Modal -->
 <div class="modal fade" id="addUserModal" tabindex="-1">
 <div class="modal-dialog">
 <div class="modal-content">

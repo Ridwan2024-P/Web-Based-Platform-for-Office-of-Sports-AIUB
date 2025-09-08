@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard – AIUB Sports</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="/Web-Based Platform for Office of Sports – AIUB/views/Admin/adminDashboard.css">
+  <link rel="stylesheet" href="/Web-Based Platform for Office of Sports – AIUB/views/Admin/style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -16,7 +16,7 @@
     <a href="index.php?action=manageUsers">Manage Users</a>
 
     <a href="/Web-Based Platform for Office of Sports – AIUB/views/Admin/ManageEvent.html">Manage Events</a>
-    <a href="/Web-Based Platform for Office of Sports – AIUB/views/Admin/RegistrationDashboard.html">Registrations</a>
+    <a href="index.php?action=manageRegistrations">Registrations</a>
     <a href="/Web-Based Platform for Office of Sports – AIUB/views/Admin/ReportsDashboard.html">Reports</a>
     <a href="/Web-Based Platform for Office of Sports – AIUB/views/Admin/Settings.html">Settings</a>
     <a href="/Web-Based Platform for Office of Sports – AIUB/index.php?action=logout">Logout</a>
