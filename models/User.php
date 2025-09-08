@@ -59,4 +59,44 @@ class User {
         $stmt->bind_param("i", $id);
         return $stmt->execute();
     }
+    
+
+    // === New method: Get user by ID ===
+    public function getById($id){
+        $stmt = $this->conn->prepare("SELECT * FROM users WHERE id=?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+
+
+    // === Change password method ===
+    public function changePassword($id, $current, $new){
+        $stmt = $this->conn->prepare("SELECT password FROM users WHERE id=?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $res = $stmt->get_result()->fetch_assoc();
+
+        if(!password_verify($current, $res['password'])){
+            return "Current password is incorrect";
+        }
+
+        $new_hashed = password_hash($new, PASSWORD_DEFAULT);
+        $stmt = $this->conn->prepare("UPDATE users SET password=? WHERE id=?");
+        $stmt->bind_param("si", $new_hashed, $id);
+        return $stmt->execute();
+    }
+    public function updatee($id, $username, $email, $param4 = null, $param5 = null, $param6 = null) {
+    $stmt = $this->conn->prepare("UPDATE users SET username=?, email=? WHERE id=?");
+    $stmt->bind_param("ssi", $username, $email, $id);
+    return $stmt->execute();
+
+}
+public function updatePassword($id, $hashedPassword) {
+    $stmt = $this->conn->prepare("UPDATE users SET password = ? WHERE id = ?");
+    $stmt->bind_param("si", $hashedPassword, $id);
+    return $stmt->execute();
+}
+
+
 }

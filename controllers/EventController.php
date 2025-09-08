@@ -23,7 +23,7 @@ class EventController {
                     $this->eventModel->delete($_POST['id']);
                     break;
             }
-            header("Location: " . $_SERVER['PHP_SELF']);
+             header("Location: ?action=manageEvents");
             exit;
         }
 

@@ -1,7 +1,3 @@
-<?php
-// $registrations is passed from the controller
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,25 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Manage Registrations – Admin Dashboard</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
- <link rel="stylesheet" href="/Web-Based Platform for Office of Sports – AIUB/views/Admin/style.css">
-  
+ <link rel="stylesheet" href="/Web-Based Platform for Office of Sports – AIUB/views/Admin/style.css">  
 </head>
 <body>
-  <div class="sidebar">
+<div class="sidebar">
     <h4>Admin</h4>
     <a href="index.php?action=dashboard">Dashboard</a>
     <a href="index.php?action=manageUsers">Manage Users</a>
     <a href="index.php?action=manageEvents">Manage Events</a>
     <a href="index.php?action=manageRegistrations">Registrations</a>
     <a href="index.php?action=reports">Reports</a>
-    <a href="/Web-Based Platform for Office of Sports – AIUB/views/Admin/Settings.html">Settings</a>
+    <a href="index.php?action=settings">Settings</a>
     <a href="index.php?action=logout">Logout</a>
   </div>
-  <div class="top-navbar">
+    <div class="top-navbar">
     <h5>Dashboard</h5>
-    <div>Welcome, Admin</div>
-  </div>
-
+    <div>
+        Welcome, <?= isset($_SESSION['username']) ? $_SESSION['username'] : 'Admin' ?>
+    </div>
+</div>
   <div class="main-content">
     <div class="d-flex justify-content-between align-items-center mb-3">
       <input type="text" id="searchInput" class="form-control search-input" placeholder="Search registration..." onkeyup="searchTable()">

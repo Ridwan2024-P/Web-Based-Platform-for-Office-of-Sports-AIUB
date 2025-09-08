@@ -15,52 +15,58 @@
     <a href="index.php?action=manageEvents">Manage Events</a>
     <a href="index.php?action=manageRegistrations">Registrations</a>
     <a href="index.php?action=reports">Reports</a>
-    <a href="/Web-Based Platform for Office of Sports – AIUB/views/Admin/Settings.html">Settings</a>
+    <a href="index.php?action=settings">Settings</a>
     <a href="index.php?action=logout">Logout</a>
   </div>
   <div class="top-navbar">
     <h5>Settings</h5>
-    <div>Welcome, Admin</div>
+    <div>Welcome, <?= htmlspecialchars($_SESSION['username']) ?></div>
   </div>
-  <div class="main-content">
-    <div class="row">
+  <div class="main-content container py-4">
+    <?php if($success): ?>
+      <div class="alert alert-success"><?= htmlspecialchars($success) ?></div>
+    <?php endif; ?>
+    <?php if($error): ?>
+      <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
+    <?php endif; ?>
+    <div class="row g-4">
       <div class="col-md-6">
         <div class="card p-4">
           <h5>Update Profile</h5>
-          <form>
+          <form action="index.php?action=updateProfile" method="POST">
             <div class="mb-3">
               <label for="name" class="form-label">Full Name</label>
-              <input type="text" class="form-control" id="name" placeholder="Enter full name" value="Admin User">
+              <input type="text" class="form-control" id="name" name="username" value="<?= htmlspecialchars($user['username']) ?>" required>
             </div>
             <div class="mb-3">
               <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email" placeholder="Enter email" value="admin@example.com">
+              <input type="email" class="form-control" id="email" name="email" value="<?= htmlspecialchars($user['email']) ?>" required>
             </div>
             <div class="mb-3">
               <label for="role" class="form-label">Role</label>
-              <input type="text" class="form-control" id="role" value="Administrator" disabled>
+              <input type="text" class="form-control" id="role" value="<?= htmlspecialchars($user['role']) ?>" disabled>
             </div>
-            <button type="submit" class="btn btn-custom w-100">Update Profile</button>
+            <button type="submit" class="btn btn-primary w-100">Update Profile</button>
           </form>
         </div>
       </div>
       <div class="col-md-6">
         <div class="card p-4">
           <h5>Change Password</h5>
-          <form>
+          <form action="index.php?action=changePassword" method="POST">
             <div class="mb-3">
               <label for="currentPassword" class="form-label">Current Password</label>
-              <input type="password" class="form-control" id="currentPassword" placeholder="Enter current password">
+              <input type="password" class="form-control" id="currentPassword" name="current_password" required>
             </div>
             <div class="mb-3">
               <label for="newPassword" class="form-label">New Password</label>
-              <input type="password" class="form-control" id="newPassword" placeholder="Enter new password">
+              <input type="password" class="form-control" id="newPassword" name="new_password" required>
             </div>
             <div class="mb-3">
               <label for="confirmPassword" class="form-label">Confirm Password</label>
-              <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm new password">
+              <input type="password" class="form-control" id="confirmPassword" name="confirm_password" required>
             </div>
-            <button type="submit" class="btn btn-custom w-100">Change Password</button>
+            <button type="submit" class="btn btn-warning w-100">Change Password</button>
           </form>
         </div>
       </div>

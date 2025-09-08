@@ -15,12 +15,14 @@
     <a href="index.php?action=manageEvents">Manage Events</a>
     <a href="index.php?action=manageRegistrations">Registrations</a>
     <a href="index.php?action=reports">Reports</a>
-    <a href="/Web-Based Platform for Office of Sports – AIUB/views/Admin/Settings.html">Settings</a>
+    <a href="index.php?action=settings">Settings</a>
     <a href="index.php?action=logout">Logout</a>
   </div>
-<div class="top-navbar">
-<h5>Manage Users</h5>
-<div>Welcome, Admin</div>
+  <div class="top-navbar">
+    <h5>Dashboard</h5>
+    <div>
+        Welcome, <?= isset($_SESSION['username']) ? $_SESSION['username'] : 'Admin' ?>
+    </div>
 </div>
 
 <!-- Main Content -->
@@ -81,9 +83,9 @@
 <div class="mb-3">
 <label class="form-label">Role</label>
 <select name="role" class="form-select">
-<option <?= $row['role']=='Student'?'selected':'' ?>>Student</option>
-<option <?= $row['role']=='Coach'?'selected':'' ?>>Coach</option>
-<option <?= $row['role']=='Admin'?'selected':'' ?>>Admin</option>
+<option <?= $row['role']=='volunteer'?'selected':'' ?>>volunteer</option>
+<option <?= $row['role']=='user'?'selected':'' ?>>user</option>
+
 </select>
 </div>
 <div class="mb-3">
@@ -129,9 +131,8 @@
 <div class="mb-3">
 <label class="form-label">Role</label>
 <select name="role" class="form-select">
-<option>Student</option>
-<option>Coach</option>
-<option>Admin</option>
+<option>volunteer</option>
+<option>user</option>
 </select>
 </div>
 <div class="mb-3">

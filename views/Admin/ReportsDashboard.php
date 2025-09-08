@@ -1,6 +1,3 @@
-<?php
-// $registrationsByEvent, $eventStatus, $recentRegistrations are passed from controller
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,13 +16,16 @@
     <a href="index.php?action=manageEvents">Manage Events</a>
     <a href="index.php?action=manageRegistrations">Registrations</a>
     <a href="index.php?action=reports">Reports</a>
-    <a href="/Web-Based Platform for Office of Sports – AIUB/views/Admin/Settings.html">Settings</a>
+    <a href="index.php?action=settings">Settings</a>
     <a href="index.php?action=logout">Logout</a>
   </div>
-<div class="top-navbar">
-    <h5>Reports</h5>
-    <div>Welcome, Admin</div>
-  </div>
+  <div class="top-navbar">
+     <h5>Dashboard</h5>
+    <div>
+        Welcome, <?= isset($_SESSION['username']) ? $_SESSION['username'] : 'Admin' ?>
+    </div>
+</div>
+</div>
 <div class="main-content">
   
 
@@ -81,7 +81,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-// Chart 1: Registrations by Event
+
 const regLabels = <?= json_encode(array_column($registrationsByEvent,'event_name')) ?>;
 const regData   = <?= json_encode(array_column($registrationsByEvent,'total')) ?>;
 const ctx1 = document.getElementById('registrationsChart').getContext('2d');
@@ -91,7 +91,7 @@ new Chart(ctx1, {
     options: { responsive: true, plugins: { legend: { display: false } } }
 });
 
-// Chart 2: Event Status Distribution
+
 const statusLabels = <?= json_encode(array_column($eventStatus,'status')) ?>;
 const statusData   = <?= json_encode(array_column($eventStatus,'total')) ?>;
 const ctx2 = document.getElementById('eventStatusChart').getContext('2d');
