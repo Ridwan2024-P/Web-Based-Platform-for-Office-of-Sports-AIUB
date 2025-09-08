@@ -13,7 +13,8 @@
   <div class="sidebar">
     <h4>Admin</h4>
     <a href="#">Dashboard</a>
-    <a href="/Web-Based Platform for Office of Sports – AIUB/views/Admin/ManageUser.html">Manage Users</a>
+<a href="index.php?action=manageUsers">Manage Users</a>
+
     <a href="/Web-Based Platform for Office of Sports – AIUB/views/Admin/ManageEvent.html">Manage Events</a>
     <a href="/Web-Based Platform for Office of Sports – AIUB/views/Admin/RegistrationDashboard.html">Registrations</a>
     <a href="/Web-Based Platform for Office of Sports – AIUB/views/Admin/ReportsDashboard.html">Reports</a>
