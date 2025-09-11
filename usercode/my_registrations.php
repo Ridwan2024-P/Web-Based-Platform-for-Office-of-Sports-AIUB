@@ -13,21 +13,22 @@ $conn = (new Db())->conn;
 if(isset($_POST['cancel_registration'])) {
     $registration_id = $_POST['registration_id'];
 
-    $stmt = $conn->prepare("DELETE FROM registrations WHERE id=? AND email=?");
-    $stmt->bind_param("is", $registration_id, $_SESSION['email']);
+    $stmt = $conn->prepare("DELETE FROM registrations WHERE id=? AND user_id=?");
+    $stmt->bind_param("ii", $registration_id, $_SESSION['user_id']);
     $stmt->execute();
 
     $message = "Registration cancelled successfully";
 }
 
 // Fetch user registrations
-$stmt = $conn->prepare("SELECT r.id, r.event_name, r.status, e.date, e.venue 
-                        FROM registrations r 
-                        LEFT JOIN events e ON r.event_name = e.name 
-                        WHERE r.email=? 
-                        ORDER BY e.date ASC");
-
-$stmt->bind_param("s", $_SESSION['email']);
+$stmt = $conn->prepare("
+    SELECT r.id, r.event_name, r.status, e.date, e.venue 
+    FROM registrations r 
+    LEFT JOIN events e ON r.event_id = e.id
+    WHERE r.user_id = ?
+    ORDER BY e.date ASC
+");
+$stmt->bind_param("i", $_SESSION['user_id']);
 $stmt->execute();
 $registrations = $stmt->get_result();
 ?>
@@ -58,27 +59,26 @@ body { font-family: 'Poppins', sans-serif; background: #f4f6f9; }
 </head>
 <body>
 
-<!-- Sidebar -->
+
 <div class="sidebar">
   <h4>User</h4>
-  <a href="dashboard.php">Dashboard</a>
-  <a href="upcoming_events.php">Upcoming Events</a>
+  <a href="try.php">Dashboard</a>
+  <a href="up.php">Upcoming Events</a>
   <a href="my_registrations.php">My Registrations</a>
-  <a href="profile.php">Profile</a>
-  <a href="logout.php">Logout</a>
+  <a href="#">Profile</a>
+  <a href="index.php?action=logout">Logout</a>
 </div>
 
-<!-- Top Navbar -->
+
 <div class="top-navbar">
   <h5>My Registrations</h5>
   <div>Welcome, <?= htmlspecialchars($_SESSION['username']) ?></div>
 </div>
 
-<!-- Main Content -->
 <div class="main-content">
 
 <?php if(isset($message)): ?>
-<div class="alert alert-success"><?= $message ?></div>
+<div class="alert alert-success"><?= htmlspecialchars($message) ?></div>
 <?php endif; ?>
 
 <div class="card p-3">
@@ -99,7 +99,7 @@ body { font-family: 'Poppins', sans-serif; background: #f4f6f9; }
         <?php 
         $i = 1;
         while($row = $registrations->fetch_assoc()):
-            $status_class = $row['status'] == 'Registered' ? 'bg-success' : 'bg-warning';
+            $status_class = $row['status'] == 'Approved' ? 'bg-success' : ($row['status']=='Pending' ? 'bg-warning' : 'bg-danger');
         ?>
         <tr>
           <td><?= $i++ ?></td>

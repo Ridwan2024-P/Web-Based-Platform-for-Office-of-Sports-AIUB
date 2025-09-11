@@ -12,8 +12,7 @@ $conn = (new Db())->conn;
 // Handle event registration
 if(isset($_POST['register_event'])) {
     $event_id = $_POST['event_id'];
-    $student_name = $_SESSION['username'];
-    $email = $_SESSION['email'];
+    $user_id = $_SESSION['user_id']; // logged-in user's id
 
     // Get event name
     $stmt = $conn->prepare("SELECT name FROM events WHERE id=?");
@@ -22,20 +21,29 @@ if(isset($_POST['register_event'])) {
     $event = $stmt->get_result()->fetch_assoc();
     $event_name = $event['name'];
 
-    // Insert registration
-    $stmt = $conn->prepare("INSERT INTO registrations (student_name,email,event_name,registration_date,status) VALUES (?,?,?,CURDATE(),'Pending')");
-    $stmt->bind_param("sss", $student_name, $email, $event_name);
-    $stmt->execute();
+    // Check if user already registered
+    $checkStmt = $conn->prepare("SELECT * FROM registrations WHERE user_id=? AND event_id=?");
+    $checkStmt->bind_param("ii", $user_id, $event_id);
+    $checkStmt->execute();
 
-    $message = "Successfully registered for $event_name";
+    if($checkStmt->get_result()->num_rows > 0){
+        $message = "You are already registered for $event_name";
+    } else {
+        // Insert registration
+        $insertStmt = $conn->prepare("INSERT INTO registrations (user_id, event_id, event_name, registration_date, status) VALUES (?, ?, ?, CURDATE(), 'Pending')");
+        $insertStmt->bind_param("iis", $user_id, $event_id, $event_name);
+        $insertStmt->execute();
+
+        $message = "Successfully registered for $event_name";
+    }
 }
 
 // Fetch upcoming events
 $events_result = $conn->query("SELECT * FROM events WHERE status='Active' ORDER BY date ASC");
 
-// Fetch participation history
-$stmt = $conn->prepare("SELECT * FROM registrations WHERE email=? ORDER BY registration_date DESC");
-$stmt->bind_param("s", $_SESSION['email']);
+// Fetch participation history for logged-in user
+$stmt = $conn->prepare("SELECT * FROM registrations WHERE user_id=? ORDER BY registration_date DESC");
+$stmt->bind_param("i", $_SESSION['user_id']);
 $stmt->execute();
 $history_result = $stmt->get_result();
 ?>
@@ -48,7 +56,7 @@ $history_result = $stmt->get_result();
 <title>User Dashboard – AIUB Sports</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <style>
-/* Sidebar */
+/* Sidebar & styles */
 body{font-family:sans-serif;background:#f4f6f9;}
 .sidebar{height:100vh;width:220px;position:fixed;top:0;left:0;background:#0d6efd;padding-top:2rem;color:#fff;}
 .sidebar a{display:block;color:#fff;padding:12px 20px;text-decoration:none;margin-bottom:0.5rem;border-radius:8px;transition:0.2s;}
@@ -66,11 +74,11 @@ body{font-family:sans-serif;background:#f4f6f9;}
 
 <div class="sidebar">
   <h4>User</h4>
-  <a href="#">Dashboard</a>
-  <a href="#">Upcoming Events</a>
+  <a href="try.php">Dashboard</a>
+  <a href="up.php">Upcoming Events</a>
   <a href="my_registrations.php">My Registrations</a>
   <a href="#">Profile</a>
-  <a href="logout.php">Logout</a>
+  <a href="index.php?action=logout">Logout</a>
 </div>
 
 <div class="top-navbar">
@@ -81,7 +89,7 @@ body{font-family:sans-serif;background:#f4f6f9;}
 <div class="main-content">
 
 <?php if(isset($message)): ?>
-<div class="alert alert-success"><?= $message ?></div>
+<div class="alert alert-success"><?= htmlspecialchars($message) ?></div>
 <?php endif; ?>
 
 <h4 class="mb-3">Upcoming Sports Events</h4>
@@ -101,6 +109,31 @@ body{font-family:sans-serif;background:#f4f6f9;}
 <?php endwhile; ?>
 </div>
 
+<h4 class="mt-5 mb-3">My Participation History</h4>
+<div class="table-responsive">
+<table class="table table-hover">
+<thead>
+<tr>
+<th>#</th>
+<th>Event</th>
+<th>Date</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<?php $i=1; while($row=$history_result->fetch_assoc()): ?>
+<tr>
+<td><?= $i++ ?></td>
+<td><?= htmlspecialchars($row['event_name']) ?></td>
+<td><?= htmlspecialchars($row['registration_date']) ?></td>
+<td><?= htmlspecialchars($row['status']) ?></td>
+</tr>
+<?php endwhile; ?>
+</tbody>
+</table>
+</div>
+
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

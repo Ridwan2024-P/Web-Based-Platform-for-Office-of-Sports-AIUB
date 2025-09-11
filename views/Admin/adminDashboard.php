@@ -14,6 +14,7 @@
     <a href="index.php?action=manageUsers">Manage Users</a>
     <a href="index.php?action=manageEvents">Manage Events</a>
     <a href="index.php?action=manageRegistrations">Registrations</a>
+     <a href="index.php?action=adminTasks">Manage Tasks & Announcements</a>
     <a href="index.php?action=reports">Reports</a>
     <a href="index.php?action=settings">Settings</a>
     <a href="index.php?action=logout">Logout</a>
