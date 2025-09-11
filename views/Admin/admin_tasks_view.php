@@ -88,7 +88,30 @@
 </div>
 
 </div>
+<h5 class="mt-5">Existing Tasks</h5>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Volunteer</th>
+            <th>Event</th>
+            <th>Task</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php while($task = $tasks->fetch_assoc()): ?>
+        <tr>
+            <td><?= htmlspecialchars($task['volunteer_name']) ?></td>
+            <td><?= htmlspecialchars($task['event_name']) ?></td>
+            <td><?= htmlspecialchars($task['task_name']) ?></td>
+            <td><?= htmlspecialchars($task['task_date']) ?></td>
+        </tr>
+        <?php endwhile; ?>
+    </tbody>
+</table>
+
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

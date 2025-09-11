@@ -36,4 +36,17 @@ class Model {
         $stmt->bind_param("ss", $message, $event_date);
         return $stmt->execute();
     }
+    public function getTasks() {
+    $sql = "SELECT vt.id, u.username AS volunteer_name, vt.event_name, vt.task_name, vt.task_date
+            FROM volunteer_tasks vt
+            JOIN users u ON vt.volunteer_id = u.id
+            ORDER BY vt.task_date DESC";
+    return $this->conn->query($sql);
+}
+
+public function getAnnouncements() {
+    $sql = "SELECT * FROM announcements ORDER BY event_date DESC";
+    return $this->conn->query($sql);
+}
+
 }

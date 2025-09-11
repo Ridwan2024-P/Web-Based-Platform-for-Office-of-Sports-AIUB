@@ -11,15 +11,18 @@ class AdminTasksController {
     }
 
     public function admintask() {
-        $this->handleAddTask();
-        $this->handleAddAnnouncement();
+    $this->handleAddTask();
+    $this->handleAddAnnouncement();
 
-        $volunteers = $this->model->getVolunteers();
-        $events = $this->model->getActiveEvents();
-        $message = $this->message;
+    $volunteers = $this->model->getVolunteers();
+    $events = $this->model->getActiveEvents();
+    $tasks = $this->model->getTasks();               
+    $announcements = $this->model->getAnnouncements(); 
+    $message = $this->message;
 
-        require_once __DIR__ . '/../views/Admin/admin_tasks_view.php';
-    }
+    require_once __DIR__ . '/../views/Admin/admin_tasks_view.php';
+}
+
 
     private function handleAddTask() {
         if(isset($_POST['add_task'])){
