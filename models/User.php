@@ -27,15 +27,16 @@ class User {
         }
 
         $passwordHash = password_hash($password, PASSWORD_BCRYPT);
-        $stmt = $this->conn->prepare("INSERT INTO users (username, email, password, role, status) VALUES (?, ?, ?, ?, 1)");
+        $stmt = $this->conn->prepare("INSERT INTO users (username, email, password, role, status) VALUES (?, ?, ?, ?, 0)");
         $stmt->bind_param("ssss", $username, $email, $passwordHash, $role);
 
         return $stmt->execute();
     }
-      public function getAll() {
-        $result = $this->conn->query("SELECT * FROM users");
-        return $result;
-    }
+     public function getAll() {
+    $result = $this->conn->query("SELECT * FROM users ORDER BY id DESC");
+    return $result;
+}
+
 
     public function add($username, $email, $password, $role, $status) {
         $stmt = $this->conn->prepare("INSERT INTO users (username,email,password,role,status) VALUES (?,?,?,?,?)");
@@ -61,7 +62,6 @@ class User {
     }
     
 
-    // === New method: Get user by ID ===
     public function getById($id){
         $stmt = $this->conn->prepare("SELECT * FROM users WHERE id=?");
         $stmt->bind_param("i", $id);
@@ -70,7 +70,7 @@ class User {
     }
 
 
-    // === Change password method ===
+
     public function changePassword($id, $current, $new){
         $stmt = $this->conn->prepare("SELECT password FROM users WHERE id=?");
         $stmt->bind_param("i", $id);

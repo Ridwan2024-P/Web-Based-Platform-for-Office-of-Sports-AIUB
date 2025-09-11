@@ -27,12 +27,20 @@ class Report {
     }
 
     // Recent Registrations
-    public function getRecentRegistrations($limit = 10){
-        $data = [];
-        $res = $this->conn->query("SELECT id, student_name, email, event_name, registration_date, status FROM registrations ORDER BY registration_date DESC LIMIT $limit");
-        while($row = $res->fetch_assoc()){
-            $data[] = $row;
-        }
-        return $data;
+   public function getRecentRegistrations($limit = 10){
+    $data = [];
+    $sql = "
+        SELECT r.id, u.username AS student_name, u.email, r.event_name, r.registration_date, r.status
+        FROM registrations r
+        JOIN users u ON r.user_id = u.id
+        ORDER BY r.registration_date DESC
+        LIMIT $limit
+    ";
+    $res = $this->conn->query($sql);
+    while($row = $res->fetch_assoc()){
+        $data[] = $row;
     }
+    return $data;
+}
+
 }

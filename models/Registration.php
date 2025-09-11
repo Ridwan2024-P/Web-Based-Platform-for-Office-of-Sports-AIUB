@@ -7,9 +7,17 @@ class Registration {
         $this->conn = $db;
     }
 
-    public function getAll() {
-        return $this->conn->query("SELECT * FROM {$this->table} ORDER BY registration_date DESC");
-    }
+  public function getAll() {
+    $sql = "
+        SELECT r.id, r.event_name, r.registration_date, r.status,
+               u.username AS student_name, u.email
+        FROM {$this->table} r
+        JOIN users u ON r.user_id = u.id
+        ORDER BY r.registration_date DESC
+    ";
+    return $this->conn->query($sql);
+}
+
 
     public function updateStatus($id, $status) {
         $stmt = $this->conn->prepare("UPDATE {$this->table} SET status=? WHERE id=?");
