@@ -19,6 +19,7 @@ require_once __DIR__ . '/controllers/DashboardController.php';
 require_once __DIR__ . '/controllers/AdminController.php';
 require_once __DIR__ . '/controllers/AdminTasksController.php';
 require_once __DIR__ . '/controllers/UserdeshbordController.php';
+require_once __DIR__ . '/controllers/VolunteerController.php';
 
 $auth = new AuthController($conn);
 $register = new RegisterController($conn);
@@ -30,7 +31,7 @@ $dashboardController = new DashboardController($conn);
 $adminController = new AdminController($conn); 
 $adminTasksController = new AdminTasksController($conn); 
 $controller = new UserdeshbordController();
-
+$volunteerController = new VolunteerController($conn);
 
 
 $action = $_GET['action'] ?? 'login';
@@ -107,6 +108,9 @@ switch($action){
      case 'myRegistrations': 
         $controller->myRegistrations();
         break;  
+     case 'volunteerDashboard':
+        $volunteerController->dashboardg();
+        break;   
 
     default: 
         $auth->login(); 

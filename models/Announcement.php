@@ -9,7 +9,7 @@ class Announcement {
     }
 
     public function getAll() {
-        $result = $this->conn->query("SELECT * FROM announcements ORDER BY event_date ASC");
-        return $result;
+        $stmt = $this->conn->query("SELECT * FROM announcements ORDER BY event_date ASC");
+        return $stmt;
     }
 }

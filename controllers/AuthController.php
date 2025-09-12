@@ -35,7 +35,7 @@ class AuthController {
                         break;
 
                     case 'volunteer':
-                        header("Location:try.php");
+                        header("Location:index.php?action=volunteerDashboard");
                         break;
 
                     default:
