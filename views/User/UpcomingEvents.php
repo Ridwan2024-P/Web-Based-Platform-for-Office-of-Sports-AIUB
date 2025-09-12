@@ -12,7 +12,6 @@
   <a href="index.php?action=dashboardd">Dashboard</a>
   <a href="index.php?action=upcoming">Upcoming Events</a>
   <a href="index.php?action=myRegistrations">My Registrations</a>
-  <a href="index.php?action=settings">Settings</a>
   <a href="index.php?action=logout">Logout</a>
 </div>
 

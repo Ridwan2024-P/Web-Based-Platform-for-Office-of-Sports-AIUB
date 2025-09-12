@@ -10,8 +10,8 @@ class SettingsController {
     }
 
     public function index(){
-        // Login check
-        if(!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin'){
+    
+        if(!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'user'){
             header("Location: index.php?action=login");
             exit;
         }

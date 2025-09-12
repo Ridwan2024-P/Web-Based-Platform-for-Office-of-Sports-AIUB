@@ -1,28 +1,7 @@
 <?php
-session_start();
-require_once 'models/Db.php'; // ডেটাবেস কানেকশন
-
-
-$conn = (new Db())->conn;
-
-// Mark task as completed
-if(isset($_POST['mark_completed'])){
-    $task_id = $_POST['task_id'];
-    $stmt = $conn->prepare("UPDATE volunteer_tasks SET status='Completed' WHERE id=? AND volunteer_id=?");
-    $stmt->bind_param("ii", $task_id, $_SESSION['user_id']);
-    $stmt->execute();
-    $message = "Task marked as Completed!";
-}
-
-// Fetch assigned tasks
-$stmt = $conn->prepare("SELECT * FROM volunteer_tasks WHERE volunteer_id=? ORDER BY task_date ASC");
-$stmt->bind_param("i", $_SESSION['user_id']);
-$stmt->execute();
-$tasks = $stmt->get_result();
-
-// Fetch announcements
-$announcements_result = $conn->query("SELECT * FROM announcements ORDER BY event_date ASC");
+// $tasks, $announcements, $message passed from controller
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,7 +12,7 @@ $announcements_result = $conn->query("SELECT * FROM announcements ORDER BY event
 <style>
 body { font-family: 'Poppins', sans-serif; background: #f4f6f9; }
 .sidebar { height: 100vh; width: 220px; position: fixed; top: 0; left: 0; background-color: #0d6efd; padding-top: 2rem; color: #fff; }
-.sidebar a { display: block; color: #fff; padding: 12px 20px; text-decoration: none; margin-bottom: 0.5rem; border-radius: 8px; transition: 0.2s;}
+.sidebar a { display: block; color: #fff; padding: 12px 20px; text-decoration: none; margin-bottom: 0.5rem; border-radius: 8px; transition: 0.2s; }
 .sidebar a:hover { background-color: #084298; }
 .sidebar h4 { text-align: center; margin-bottom: 2rem; color: #ffd369; }
 .top-navbar { background-color: #fff; padding: 1rem 2rem; margin-left: 220px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
@@ -51,11 +30,11 @@ body { font-family: 'Poppins', sans-serif; background: #f4f6f9; }
 
 <div class="sidebar">
   <h4>Volunteer</h4>
-  <a href="#">Dashboard</a>
-  <a href="#">Assigned Tasks</a>
-  <a href="#">Update Progress</a>
+  <a href="?action=dashboard">Dashboard</a>
+  <a href="?action=dashboard#tasks">Assigned Tasks</a>
+  <a href="?action=dashboard#progress">Update Progress</a>
   <a href="#">Profile</a>
-  <a href="logout.php">Logout</a>
+  <a href="#">Logout</a>
 </div>
 
 <div class="top-navbar">
@@ -64,11 +43,20 @@ body { font-family: 'Poppins', sans-serif; background: #f4f6f9; }
 </div>
 
 <div class="main-content">
-<?php if(isset($message)): ?>
+
+<?php if(!empty($message)): ?>
 <div class="alert alert-success"><?= htmlspecialchars($message) ?></div>
 <?php endif; ?>
 
-<div class="card p-4">
+<!-- DASHBOARD / OVERVIEW -->
+<div class="card p-4" id="dashboard">
+<h4>Overview</h4>
+<p>Total Assigned Tasks: <?= $tasks->num_rows ?></p>
+<p>Total Announcements: <?= $announcements->num_rows ?></p>
+</div>
+
+<!-- ASSIGNED TASKS -->
+<div class="card p-4" id="tasks">
 <h4>Assigned Tasks</h4>
 <div class="table-responsive">
 <table class="table table-hover align-middle">
@@ -83,7 +71,7 @@ body { font-family: 'Poppins', sans-serif; background: #f4f6f9; }
 </tr>
 </thead>
 <tbody>
-<?php $i=1; while($row = $tasks->fetch_assoc()): 
+<?php $i=1; $tasks->data_seek(0); while($row = $tasks->fetch_assoc()): 
 $status_class = $row['status']=='Completed' ? 'bg-success' : ($row['status']=='In Progress' ? 'bg-secondary' : 'bg-warning');
 $disabled = $row['status']=='Completed' ? 'disabled' : '';
 ?>
@@ -94,9 +82,14 @@ $disabled = $row['status']=='Completed' ? 'disabled' : '';
 <td><?= htmlspecialchars($row['task_date']) ?></td>
 <td><span class="badge <?= $status_class ?> badge-status"><?= htmlspecialchars($row['status']) ?></span></td>
 <td>
-<form method="POST">
+<form method="POST" action="?action=dashboard#progress">
 <input type="hidden" name="task_id" value="<?= $row['id'] ?>">
-<button class="btn btn-sm btn-success btn-complete" name="mark_completed" <?= $disabled ?>><?= $row['status']=='Completed' ? 'Completed' : 'Mark Completed' ?></button>
+<select name="status" class="form-select form-select-sm" <?= $disabled ?>>
+  <option value="Pending" <?= $row['status']=='Pending' ? 'selected' : '' ?>>Pending</option>
+  <option value="In Progress" <?= $row['status']=='In Progress' ? 'selected' : '' ?>>In Progress</option>
+  <option value="Completed" <?= $row['status']=='Completed' ? 'selected' : '' ?>>Completed</option>
+</select>
+<button type="submit" name="update_status" class="btn btn-sm btn-primary mt-1" <?= $disabled ?>>Update</button>
 </form>
 </td>
 </tr>
@@ -106,16 +99,18 @@ $disabled = $row['status']=='Completed' ? 'disabled' : '';
 </div>
 </div>
 
-<div class="card p-4">
+<!-- EVENT ANNOUNCEMENTS -->
+<div class="card p-4" id="progress">
 <h4>Event Announcements</h4>
 <ul class="list-group">
-<?php while($row = $announcements_result->fetch_assoc()): ?>
+<?php while($row = $announcements->fetch_assoc()): ?>
 <li class="list-group-item"><?= htmlspecialchars($row['message']) ?></li>
 <?php endwhile; ?>
 </ul>
 </div>
 
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

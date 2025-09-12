@@ -9,6 +9,8 @@ $conn = new mysqli($host, $user, $pass, $db);
 if($conn->connect_error){
     die("Connection failed: " . $conn->connect_error);
 }
+
+// Existing controllers
 require_once __DIR__ . '/controllers/AuthController.php';
 require_once __DIR__ . '/controllers/RegisterController.php';
 require_once __DIR__ . '/controllers/UserController.php';
@@ -19,6 +21,11 @@ require_once __DIR__ . '/controllers/DashboardController.php';
 require_once __DIR__ . '/controllers/AdminController.php';
 require_once __DIR__ . '/controllers/AdminTasksController.php';
 require_once __DIR__ . '/controllers/UserdeshbordController.php';
+
+// **Volunteer Controller**
+require_once __DIR__ . '/controllers/VolunteerController.php';
+
+// Instantiate controllers
 $auth = new AuthController($conn);
 $register = new RegisterController($conn);
 $userController = new UserController($conn);
@@ -30,11 +37,13 @@ $adminController = new AdminController($conn);
 $adminTasksController = new AdminTasksController($conn); 
 $controller = new UserdeshbordController();
 
-
+// **Volunteer controller instance**
+$volunteerController = new VolunteerController($conn);
 
 $action = $_GET['action'] ?? 'login';
 
 switch($action){
+    // Existing routes
     case 'login': 
         $auth->login(); 
         break;
@@ -48,6 +57,7 @@ switch($action){
         $auth->logout(); 
         break;
 
+    // Admin routes
     case 'settings':
         $adminController->settings();
         break;
@@ -58,7 +68,6 @@ switch($action){
         $adminController->changePassword();
         break;
 
-   
     case 'manageUsers': 
         $userController->indexmanager(); 
         break;
@@ -71,7 +80,6 @@ switch($action){
     case 'delete': 
         $userController->deleteUser(); 
         break;
-
 
     case 'manageRegistrations': 
         $registrationController->index(); 
@@ -86,26 +94,37 @@ switch($action){
     case 'deleteEvent':
         $eventController->handleRequest();
         break;
+
     case 'reports':
         $reportController->index();
         break;
         
-   case 'adminTasks': 
-    $adminTasksController->admintask(); 
-    break;
+    case 'adminTasks': 
+        $adminTasksController->admintask(); 
+        break;
 
     case 'dashboardd': 
         $controller->dashboardd(); 
         break;
 
-     case 'upcoming': 
+    case 'upcoming': 
         $controller->upcoming(); 
         break;  
         
-        
-     case 'myRegistrations': 
+    case 'myRegistrations': 
         $controller->myRegistrations();
         break;  
+
+    // **Volunteer routes**
+    case 'volunteerDashboard': 
+        $volunteerController->index();  // Show volunteer dashboard
+        break;
+    case 'assignedTasks': 
+        $volunteerController->assignedTasks(); // Optional: assigned tasks page
+        break;
+    case 'progressUpdate': 
+        $volunteerController->progressUpdate(); // Optional: update progress page
+        break;
 
     default: 
         $auth->login(); 
