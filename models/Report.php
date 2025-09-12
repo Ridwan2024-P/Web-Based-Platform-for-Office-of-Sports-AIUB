@@ -6,7 +6,7 @@ class Report {
         $this->conn = $conn;
     }
 
-    // Registrations by Event
+    
     public function getRegistrationsByEvent(){
         $data = [];
         $res = $this->conn->query("SELECT event_name, COUNT(id) AS total FROM registrations GROUP BY event_name");
@@ -16,7 +16,7 @@ class Report {
         return $data;
     }
 
-    // Event Status Distribution
+    
     public function getEventStatus(){
         $data = [];
         $res = $this->conn->query("SELECT status, COUNT(id) AS total FROM events GROUP BY status");
@@ -26,7 +26,7 @@ class Report {
         return $data;
     }
 
-    // Recent Registrations
+  
    public function getRecentRegistrations($limit = 10){
     $data = [];
     $sql = "

@@ -37,7 +37,7 @@ class Model {
         return $stmt->execute();
     }
     public function getTasks() {
-    $sql = "SELECT vt.id, u.username AS volunteer_name, vt.event_name, vt.task_name, vt.task_date
+    $sql = "SELECT vt.id, u.username AS volunteer_name, vt.event_name, vt.task_name,vt.status, vt.task_date
             FROM volunteer_tasks vt
             JOIN users u ON vt.volunteer_id = u.id
             ORDER BY vt.task_date DESC";

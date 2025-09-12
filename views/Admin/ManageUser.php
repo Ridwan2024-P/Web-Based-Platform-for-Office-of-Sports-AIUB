@@ -9,16 +9,26 @@
 </head>
 <body>
 <div class="sidebar">
-    <h4>Admin</h4>
-    <a href="index.php?action=dashboard">Dashboard</a>
-    <a href="index.php?action=manageUsers">Manage Users</a>
-    <a href="index.php?action=manageEvents">Manage Events</a>
-    <a href="index.php?action=manageRegistrations">Registrations</a>
-     <a href="index.php?action=adminTasks">Manage Tasks & Announcements</a>
-    <a href="index.php?action=reports">Reports</a>
-    <a href="index.php?action=settings">Settings</a>
+    <h4><?= htmlspecialchars($_SESSION['role'] === 'admin' ? 'Admin' : 'Volunteer') ?></h4>
+
+    <?php if($_SESSION['role'] === 'admin'): ?>
+        <a href="index.php?action=dashboard">Dashboard</a>
+        <a href="index.php?action=manageUsers">Manage Users</a>
+        <a href="index.php?action=manageEvents">Manage Events</a>
+        <a href="index.php?action=manageRegistrations">Registrations</a>
+        <a href="index.php?action=adminTasks">Manage Tasks & Announcements</a>
+        <a href="index.php?action=reports">Reports</a>
+        <a href="index.php?action=settings">Settings</a>
+    <?php elseif($_SESSION['role'] === 'volunteer'): ?>
+       <a href="volunteer_dashboard.php">Dashboard</a>
+       <a href="index.php?action=manageUsers">Manage Users</a>
+       <a href="index.php?action=manageRegistrations">Registrations</a>
+      <a href="index.php?action=dashboardd">User Dashbaord</a>
+    <?php endif; ?>
+
     <a href="index.php?action=logout">Logout</a>
-  </div>
+</div>
+
   <div class="top-navbar">
     <h5>Dashboard</h5>
     <div>
@@ -83,11 +93,17 @@
 </div>
 <div class="mb-3">
 <label class="form-label">Role</label>
-<select name="role" class="form-select">
-<option <?= $row['role']=='volunteer'?'selected':'' ?>>volunteer</option>
-<option <?= $row['role']=='user'?'selected':'' ?>>user</option>
+<?php if($_SESSION['role'] === 'admin'): ?>
+    <select name="role" class="form-select">
+        <option value="volunteer" <?= $row['role'] == 'volunteer' ? 'selected' : '' ?>>Volunteer</option>
+        <option value="user" <?= $row['role'] == 'user' ? 'selected' : '' ?>>User</option>
+    </select>
+<?php else: ?>
+    <select name="role" class="form-select" disabled>
+        <option value="user" selected>User</option>
+    </select>
+<?php endif; ?>
 
-</select>
 </div>
 <div class="mb-3">
 <label class="form-label">Status</label>

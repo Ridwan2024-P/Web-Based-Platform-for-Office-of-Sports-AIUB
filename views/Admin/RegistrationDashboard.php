@@ -9,16 +9,25 @@
 </head>
 <body>
 <div class="sidebar">
-    <h4>Admin</h4>
-    <a href="index.php?action=dashboard">Dashboard</a>
-    <a href="index.php?action=manageUsers">Manage Users</a>
-    <a href="index.php?action=manageEvents">Manage Events</a>
-    <a href="index.php?action=manageRegistrations">Registrations</a>
-     <a href="index.php?action=adminTasks">Manage Tasks & Announcements</a>
-    <a href="index.php?action=reports">Reports</a>
-    <a href="index.php?action=settings">Settings</a>
+    <h4><?= htmlspecialchars($_SESSION['role'] === 'admin' ? 'Admin' : 'Volunteer') ?></h4>
+
+    <?php if($_SESSION['role'] === 'admin'): ?>
+        <a href="index.php?action=dashboard">Dashboard</a>
+        <a href="index.php?action=manageUsers">Manage Users</a>
+        <a href="index.php?action=manageEvents">Manage Events</a>
+        <a href="index.php?action=manageRegistrations">Registrations</a>
+        <a href="index.php?action=adminTasks">Manage Tasks & Announcements</a>
+        <a href="index.php?action=reports">Reports</a>
+        <a href="index.php?action=settings">Settings</a>
+    <?php elseif($_SESSION['role'] === 'volunteer'): ?>
+       <a href="volunteer_dashboard.php">Dashboard</a>
+       <a href="index.php?action=manageUsers">Manage Users</a>
+       <a href="index.php?action=manageRegistrations">Registrations</a>
+      <a href="index.php?action=dashboardd"> Users Dashboard</a>
+    <?php endif; ?>
+
     <a href="index.php?action=logout">Logout</a>
-  </div>
+</div>
     <div class="top-navbar">
     <h5>Dashboard</h5>
     <div>

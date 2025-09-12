@@ -95,6 +95,7 @@
             <th>Volunteer</th>
             <th>Event</th>
             <th>Task</th>
+            <th>Task</th>
             <th>Date</th>
         </tr>
     </thead>
@@ -104,6 +105,7 @@
             <td><?= htmlspecialchars($task['volunteer_name']) ?></td>
             <td><?= htmlspecialchars($task['event_name']) ?></td>
             <td><?= htmlspecialchars($task['task_name']) ?></td>
+            <td ><?= htmlspecialchars($task['status']) ?></td>
             <td><?= htmlspecialchars($task['task_date']) ?></td>
         </tr>
         <?php endwhile; ?>

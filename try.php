@@ -57,11 +57,13 @@ body { font-family: 'Poppins', sans-serif; background: #f4f6f9; }
 
 <div class="sidebar">
   <h4>Volunteer</h4>
-  <a href="volunteer_dashboard.php">Dashboard</a>
-  <a href="#">Assigned Tasks</a>
-  <a href="#">Update Progress</a>
-  <a href="profile_volunteer.php">Profile</a>
-  <a href="logout.php">Logout</a>
+  
+    <a href="try.php">Dashboard</a>
+      <a href="index.php?action=manageUsers">Manage Users</a>
+      <a href="index.php?action=manageRegistrations">Registrations</a>
+      <a href="index.php?action=manageUsers">Manage Users</a>
+      <a href="index.php?action=dashboardd">User Dashboard</a>
+      <a href="index.php?action=logout">Logout</a>
 </div>
 
 <div class="top-navbar">
