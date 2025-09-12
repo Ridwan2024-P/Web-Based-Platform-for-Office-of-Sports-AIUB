@@ -69,7 +69,7 @@
 </div>
 </div>
 
-<!-- Add Announcement -->
+
 <div class="col-md-6">
 <div class="card p-4">
 <h5>Add Announcement</h5>

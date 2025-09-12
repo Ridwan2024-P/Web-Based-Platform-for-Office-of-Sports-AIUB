@@ -10,30 +10,52 @@ class AuthController {
     }
 
     public function login() {
-        $error = '';
-        if(isset($_POST['login'])){
-            $email = trim($_POST['email']);
-            $password = $_POST['password'];
+    $error = '';
+    if (isset($_POST['login'])) {
+        $email = trim($_POST['email']);
+        $password = $_POST['password'];
 
-            $user = $this->userModel->getByEmail($email);
+        $user = $this->userModel->getByEmail($email);
 
-            if($user){
-                if(password_verify($password, $user['password'])){
-                    session_regenerate_id(true);
-                    $_SESSION['user_id'] = $user['id'];
-                    $_SESSION['username'] = $user['username'];
-                    $_SESSION['role'] = $user['role'];
-                    header("Location: index.php?action=dashboard");
-                    exit;
-                } else {
-                    $error = "Invalid password!";
+        if ($user) {
+            if (password_verify($password, $user['password'])) {
+                session_regenerate_id(true);
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['username'] = $user['username'];
+                $_SESSION['role'] = $user['role'];
+
+                
+                switch ($user['role']) {
+                    case 'admin':
+                        header("Location: index.php?action=dashboard");
+                        break;
+
+                    case 'user':
+                        header("Location: index.php?action=dashboardd");
+                        break;
+
+                    case 'volenti':
+                        header("Location: index.php?action=dashboardd");
+                        break;
+
+                    default:
+                        
+                        header("Location: index.php");
+                        break;
                 }
+                exit;
+
             } else {
-                $error = "Email not found!";
+                $error = "Invalid password!";
             }
+        } else {
+            $error = "Email not found!";
         }
-        require_once __DIR__ . '/../views/login.php';
     }
+
+    require_once __DIR__ . '/../views/login.php';
+}
+
 
     public function dashboard() {
         if(!isset($_SESSION['user_id'])){

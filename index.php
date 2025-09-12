@@ -18,6 +18,7 @@ require_once __DIR__ . '/controllers/ReportController.php';
 require_once __DIR__ . '/controllers/DashboardController.php';
 require_once __DIR__ . '/controllers/AdminController.php';
 require_once __DIR__ . '/controllers/AdminTasksController.php';
+require_once __DIR__ . '/controllers/UserdeshbordController.php';
 $auth = new AuthController($conn);
 $register = new RegisterController($conn);
 $userController = new UserController($conn);
@@ -26,16 +27,14 @@ $eventController = new EventController($conn);
 $reportController = new ReportController($conn);
 $dashboardController = new DashboardController($conn);
 $adminController = new AdminController($conn); 
-
-$adminTasksController = new AdminTasksController($conn); // New controller
+$adminTasksController = new AdminTasksController($conn); 
+$controller = new UserdeshbordController();
 
 
 
 $action = $_GET['action'] ?? 'login';
 
 switch($action){
-
-    
     case 'login': 
         $auth->login(); 
         break;
@@ -95,6 +94,18 @@ switch($action){
     $adminTasksController->admintask(); 
     break;
 
+    case 'dashboardd': 
+        $controller->dashboardd(); 
+        break;
+
+     case 'upcoming': 
+        $controller->upcoming(); 
+        break;  
+        
+        
+     case 'myRegistrations': 
+        $controller->myRegistrations();
+        break;  
 
     default: 
         $auth->login(); 

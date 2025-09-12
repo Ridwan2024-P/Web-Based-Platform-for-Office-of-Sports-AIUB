@@ -2,11 +2,6 @@
 session_start();
 require_once 'models/Db.php'; // ডেটাবেস কানেকশন
 
-// যদি লগইন না করে থাকে, redirect
-if(!isset($_SESSION['user_id'])){
-    header("Location: login.php");
-    exit;
-}
 
 $conn = (new Db())->conn;
 
