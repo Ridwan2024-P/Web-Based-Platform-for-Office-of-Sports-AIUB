@@ -11,10 +11,9 @@
     <div class="sidebar">
   <h4>Volunteer</h4>
   
-    <a href="try.php">Dashboard</a>
+    <a href="index.php?action=volunteerDashboard">Dashboard</a>
       <a href="index.php?action=manageUsers">Manage Users</a>
       <a href="index.php?action=manageRegistrations">Registrations</a>
-      <a href="index.php?action=manageUsers">Manage Users</a>
       <a href="index.php?action=dashboardd">User Dashboard</a>
       <a href="index.php?action=logout">Logout</a>
 </div>

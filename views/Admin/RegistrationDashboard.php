@@ -20,7 +20,7 @@
         <a href="index.php?action=reports">Reports</a>
         <a href="index.php?action=settings">Settings</a>
     <?php elseif($_SESSION['role'] === 'volunteer'): ?>
-       <a href="volunteer_dashboard.php">Dashboard</a>
+       <a href="index.php?action=volunteerDashboard">Dashboard</a>
        <a href="index.php?action=manageUsers">Manage Users</a>
        <a href="index.php?action=manageRegistrations">Registrations</a>
       <a href="index.php?action=dashboardd"> Users Dashboard</a>
