@@ -9,7 +9,7 @@ class AuthController {
         $this->userModel = new User();
     }
 
-    public function login() {
+   public function login() {
     $error = '';
     if (isset($_POST['login'])) {
         $email = trim($_POST['email']);
@@ -18,13 +18,15 @@ class AuthController {
         $user = $this->userModel->getByEmail($email);
 
         if ($user) {
-            if (password_verify($password, $user['password'])) {
+            
+            if ($user['status'] !== 1) {
+                $error = "Your account is inactive. Please contact admin.";
+            } elseif (password_verify($password, $user['password'])) {
                 session_regenerate_id(true);
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['role'] = $user['role'];
 
-                
                 switch ($user['role']) {
                     case 'admin':
                         header("Location: index.php?action=dashboard");
@@ -39,7 +41,6 @@ class AuthController {
                         break;
 
                     default:
-                        
                         header("Location: index.php");
                         break;
                 }
@@ -55,6 +56,7 @@ class AuthController {
 
     require_once __DIR__ . '/../views/login.php';
 }
+
 
 
     public function dashboard() {
