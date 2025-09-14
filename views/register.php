@@ -99,10 +99,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <label class="form-label">Username</label>
       <input type="text" name="username" class="form-control" placeholder="Enter username" required>
     </div>
-    <div class="mb-3">
-      <label class="form-label">Email</label>
-      <input type="email" name="email" class="form-control" placeholder="Enter email" required>
-    </div>
+   <div class="mb-3">
+  <label class="form-label">Email</label>
+  <input type="email" name="email" class="form-control" 
+         placeholder="Enter email" 
+         pattern="[0-9]{2}-[0-9]{5}-[0-9]@aiub\.student\.edu" 
+         required>
+   <div class="form-text">Format: XX-XXXXX-X@aiub.student.edu</div>
+</div>
+
     <div class="mb-3 position-relative">
       <label class="form-label">Password</label>
       <input type="password" name="password" id="password" class="form-control" placeholder="Enter password" required>
