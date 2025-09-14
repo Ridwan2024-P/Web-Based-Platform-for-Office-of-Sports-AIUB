@@ -23,7 +23,7 @@
 
 <div class="top-navbar">
 <h5>Manage Tasks & Announcements</h5>
-<div>Welcome, <?= htmlspecialchars($_SESSION['username']) ?></div>
+<div style="color:#0d6efd;">Welcome, <?= htmlspecialchars($_SESSION['username']) ?></div>
 </div>
 
 <div class="main-content">

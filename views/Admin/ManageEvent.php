@@ -22,7 +22,7 @@
   </div>
   <div class="top-navbar">
     <h5>Dashboard</h5>
-    <div>
+    <div style="color:#0d6efd;">
         Welcome, <?= isset($_SESSION['username']) ? $_SESSION['username'] : 'Admin' ?>
     </div>
 </div>

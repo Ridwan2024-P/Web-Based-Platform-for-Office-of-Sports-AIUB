@@ -18,7 +18,7 @@
       <a href="index.php?action=logout">Logout</a>
 </div>
 
-    <div class="top-navbar">
+    <div class="top-navbar" style="color:#0d6efd;">
         <h5>Update Progress</h5>
         <div>Welcome, <?= htmlspecialchars($_SESSION['username']) ?></div>
     </div>

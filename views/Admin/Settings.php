@@ -21,7 +21,7 @@
   </div>
   <div class="top-navbar">
     <h5>Settings</h5>
-    <div>Welcome, <?= htmlspecialchars($_SESSION['username']) ?></div>
+    <div style="color:#0d6efd;">Welcome, <?= htmlspecialchars($_SESSION['username']) ?></div>
   </div>
   <div class="main-content container py-4">
     <?php if($success): ?>

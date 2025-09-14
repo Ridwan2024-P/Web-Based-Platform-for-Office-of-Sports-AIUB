@@ -15,7 +15,7 @@
   <a href="index.php?action=logout">Logout</a>
 </div>
 
-<div class="top-navbar">
+<div class="top-navbar" style="color:#0d6efd;">
   <div><h3 style="color:#0d6efd;">Student</h3></div>
   <h6>Welcome, <?= htmlspecialchars($_SESSION['username']) ?></h6>
 </div>
