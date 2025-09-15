@@ -8,19 +8,21 @@
   <link rel="stylesheet" href="/Web-Based Platform for Office of Sports – AIUB/views/Admin/style.css">
 </head>
 <body>
-  <div class="sidebar">
-    <h4>Admin</h4>
-    <a href="index.php?action=dashboard">Dashboard</a>
-    <a href="index.php?action=manageUsers">Manage Users</a>
-    <a href="index.php?action=manageEvents">Manage Events</a>
-    <a href="index.php?action=manageRegistrations">Registrations</a>
-     <a href="index.php?action=adminTasks">Manage Tasks & Announcements</a>
-    <a href="index.php?action=reports">Reports</a>
-    <a href="index.php?action=settings">Settings</a>
-    <a href="index.php?action=logout">Logout</a>
-  </div>
+ <div class="sidebar">
+  <img src="445492922_122100097214350632_1896056624552573141_n.jpg" alt="Admin" style="width:100px; border-radius:50%; margin:10px auto; display:block;">
+  
+  <a href="index.php?action=dashboard">Dashboard</a>
+  <a href="index.php?action=manageUsers">Manage Users</a>
+  <a href="index.php?action=manageEvents">Manage Events</a>
+  <a href="index.php?action=manageRegistrations">Registrations</a>
+  <a href="index.php?action=adminTasks">Manage Tasks & Announcements</a>
+  <a href="index.php?action=reports">Reports</a>
+  <a href="index.php?action=settings">Settings</a>
+  <a href="index.php?action=logout">Logout</a>
+</div>
+
   <div class="top-navbar">
-    <h5>Dashboard</h5>
+    <h5>Admin Dashboard</h5>
     <div  style="color:#0d6efd;">
         Welcome, <?= isset($_SESSION['username']) ? $_SESSION['username'] : 'Admin' ?>
     </div>

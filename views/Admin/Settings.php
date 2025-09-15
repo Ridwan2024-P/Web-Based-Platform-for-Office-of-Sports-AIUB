@@ -9,7 +9,7 @@
 </head>
 <body>
  <div class="sidebar">
-    <h4>Admin</h4>
+   <img src="445492922_122100097214350632_1896056624552573141_n.jpg" alt="Admin" style="width:100px; border-radius:50%; margin:10px auto; display:block;">
     <a href="index.php?action=dashboard">Dashboard</a>
     <a href="index.php?action=manageUsers">Manage Users</a>
     <a href="index.php?action=manageEvents">Manage Events</a>
