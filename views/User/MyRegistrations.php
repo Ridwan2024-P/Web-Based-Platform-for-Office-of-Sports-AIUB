@@ -38,7 +38,7 @@
       <?php $i=1; while($row = $history->fetch_assoc()): ?>
       <tr>
         <td><?= $i++ ?></td>
-        <td><?= htmlspecialchars($row['event_name']) ?></td>
+       <td><?= htmlspecialchars($row['event_name']) ?></td>
         <td><?= htmlspecialchars($row['registration_date']) ?></td>
         <td><?= htmlspecialchars($row['status']) ?></td>
       </tr>

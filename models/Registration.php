@@ -25,3 +25,4 @@ class Registration {
         return $stmt->execute();
     }
 }
+?>
