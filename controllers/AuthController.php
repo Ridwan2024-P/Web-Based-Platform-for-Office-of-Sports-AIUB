@@ -57,6 +57,19 @@ class AuthController {
     require_once __DIR__ . '/../views/login.php';
 }
 
+public function checkLogin() {
+    if (!isset($_SESSION['user_id'])) {
+        header("Location: index.php?action=login");
+        exit();
+    }
+}
+
+public function checkRole($role) {
+    if (!isset($_SESSION['role']) || $_SESSION['role'] !== $role) {
+        header("Location: index.php?action=login");
+        exit();
+    }
+}
 
 
     public function dashboard() {

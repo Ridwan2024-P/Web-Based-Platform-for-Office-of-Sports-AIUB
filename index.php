@@ -1,14 +1,18 @@
 <?php
 session_start();
+
+
 $host = "localhost";
 $user = "root";
 $pass = "";
 $db   = "rid";
 
 $conn = new mysqli($host, $user, $pass, $db);
-if($conn->connect_error){
+if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+
+
 require_once __DIR__ . '/controllers/AuthController.php';
 require_once __DIR__ . '/controllers/RegisterController.php';
 require_once __DIR__ . '/controllers/UserController.php';
@@ -21,6 +25,7 @@ require_once __DIR__ . '/controllers/AdminTasksController.php';
 require_once __DIR__ . '/controllers/UserdeshbordController.php';
 require_once __DIR__ . '/controllers/VolunteerController.php';
 
+
 $auth = new AuthController($conn);
 $register = new RegisterController($conn);
 $userController = new UserController($conn);
@@ -30,89 +35,149 @@ $reportController = new ReportController($conn);
 $dashboardController = new DashboardController($conn);
 $adminController = new AdminController($conn); 
 $adminTasksController = new AdminTasksController($conn); 
-$controller = new UserdeshbordController();
+$userDashboardController = new UserdeshbordController();
 $volunteerController = new VolunteerController($conn);
+
+
+function requireLogin() {
+    if (!isset($_SESSION['user_id'])) {
+        header("Location: index.php?action=login");
+        exit();
+    }
+}
+
+function requireRole($roles) {
+    if (!isset($_SESSION['role'])) {
+        header("Location: index.php?action=login");
+        exit();
+    }
+
+    if (!is_array($roles)) {
+        $roles = [$roles];
+    }
+
+  
+    if (!in_array(strtolower($_SESSION['role']), array_map('strtolower', $roles))) {
+        header("Location: index.php?action=login");
+        exit();
+    }
+}
+
 
 
 $action = $_GET['action'] ?? 'login';
 
 switch($action){
-    case 'login': 
-        $auth->login(); 
-        break;
-    case 'register': 
-        $register->register(); 
-        break;
-    case 'dashboard': 
-        $dashboardController->index();  
-        break;
-    case 'logout': 
-        $auth->logout(); 
+
+    
+    case 'login':
+        $auth->login();
         break;
 
-    case 'settings':
-        $adminController->settings();
+    case 'register':
+        $register->register();
         break;
-    case 'updateProfile':
-        $adminController->updateProfile();
-        break;
-    case 'changePassword':
-        $adminController->changePassword();
+
+    case 'logout':
+        $auth->logout();
         break;
 
    
-    case 'manageUsers': 
-        $userController->indexmanager(); 
-        break;
-    case 'add': 
-        $userController->addUser(); 
-        break;
-    case 'edit': 
-        $userController->editUser(); 
-        break;
-    case 'delete': 
-        $userController->deleteUser(); 
+    case 'dashboard':
+        requireLogin();
+        requireRole('admin');
+        $dashboardController->index();
         break;
 
-
-    case 'manageRegistrations': 
-        $registrationController->index(); 
+    case 'settings':
+    case 'updateProfile':
+    case 'changePassword':
+        requireLogin();
+        requireRole('admin');
+        $adminController->{$action}();
         break;
-    case 'registrationAction': 
-        $registrationController->action(); 
+
+    case 'manageUsers':
+        requireLogin();
+       requireRole(['admin', 'volunteer']);
+        $userController->indexmanager();
+        break;
+
+    case 'add':
+        requireLogin();
+        requireRole('admin');
+        $userController->addUser();
+        break;
+
+    case 'edit':
+        requireLogin();
+        requireRole('admin');
+        $userController->editUser();
+        break;
+
+    case 'delete':
+        requireLogin();
+        requireRole('admin');
+        $userController->deleteUser();
+        break;
+
+    case 'manageRegistrations':
+        requireLogin();
+       requireRole(['admin', 'volunteer']);
+        $registrationController->index();
+        break;
+
+    case 'registrationAction':
+        requireLogin();
+        requireRole('admin');
+        $registrationController->action();
         break;
 
     case 'manageEvents':
     case 'addEvent':
     case 'editEvent':
     case 'deleteEvent':
+        requireLogin();
+        requireRole('admin');
         $eventController->handleRequest();
         break;
+
     case 'reports':
+        requireLogin();
+        requireRole('admin');
         $reportController->index();
         break;
-        
-   case 'adminTasks': 
-    $adminTasksController->admintask(); 
-    break;
 
-    case 'dashboardd': 
-        $controller->dashboardd(); 
+    case 'adminTasks':
+        requireLogin();
+        requireRole('admin');
+        $adminTasksController->admintask();
         break;
 
-     case 'upcoming': 
-        $controller->upcoming(); 
-        break;  
-        
-        
-     case 'myRegistrations': 
-        $controller->myRegistrations();
-        break;  
-     case 'volunteerDashboard':
-        $volunteerController->dashboardg();
-        break;   
+ 
+    case 'dashboardd':
+        requireLogin();
+         requireRole(['user', 'volunteer']);
+        $userDashboardController->dashboardd();
+        break;
 
-    default: 
-        $auth->login(); 
+    case 'upcoming':
+        requireLogin();
+         requireRole(['user', 'volunteer']);
+        $userDashboardController->upcoming();
+        break;
+
+    case 'myRegistrations':
+        requireLogin();
+        requireRole(['user', 'volunteer']);
+        $userDashboardController->myRegistrations();
+        break;
+
+   case 'volunteerDashboard':
+    $volunteerController->dashboardg();
+    break;
+
+    default:
+        $auth->login();
         break;
 }

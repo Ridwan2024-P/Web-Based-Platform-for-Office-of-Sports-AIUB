@@ -53,6 +53,11 @@
                         <input type="password" name="password" class="form-control form-control-lg rounded-pill" placeholder="Enter password" required/>
                     </div>
 
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" name="remember" class="form-check-input" id="remember">
+                        <label class="form-check-label" for="remember">Remember Me</label>
+                    </div>
+                    
                     <div class="text-center mt-4 pt-2">
                         <button type="submit" name="login" class="btn btn-primary btn-lg w-100">Login</button>
                         <p class="small fw-bold mt-3 mb-0 text-center">Don't have an account? <a href="index.php?action=register" class="link-danger">Register</a></p>
