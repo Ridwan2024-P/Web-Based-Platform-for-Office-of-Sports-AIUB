@@ -56,7 +56,6 @@ function requireRole($roles) {
         $roles = [$roles];
     }
 
-  
     if (!in_array(strtolower($_SESSION['role']), array_map('strtolower', $roles))) {
         header("Location: index.php?action=login");
         exit();
@@ -64,10 +63,14 @@ function requireRole($roles) {
 }
 
 
-
 $action = $_GET['action'] ?? 'login';
 
-switch($action){
+if (isset($_SESSION['user_id'])) {
+    $auth->checkTimeout();
+}
+
+
+switch($action) {
 
     
     case 'login':
@@ -82,7 +85,6 @@ switch($action){
         $auth->logout();
         break;
 
-   
     case 'dashboard':
         requireLogin();
         requireRole('admin');
@@ -99,7 +101,7 @@ switch($action){
 
     case 'manageUsers':
         requireLogin();
-       requireRole(['admin', 'volunteer']);
+        requireRole(['admin','volunteer']);
         $userController->indexmanager();
         break;
 
@@ -123,7 +125,7 @@ switch($action){
 
     case 'manageRegistrations':
         requireLogin();
-       requireRole(['admin', 'volunteer']);
+        requireRole(['admin','volunteer']);
         $registrationController->index();
         break;
 
@@ -154,28 +156,31 @@ switch($action){
         $adminTasksController->admintask();
         break;
 
- 
+
     case 'dashboardd':
         requireLogin();
-         requireRole(['user', 'volunteer']);
+        requireRole(['user','volunteer']);
         $userDashboardController->dashboardd();
         break;
 
     case 'upcoming':
         requireLogin();
-         requireRole(['user', 'volunteer']);
+        requireRole(['user','volunteer']);
         $userDashboardController->upcoming();
         break;
 
     case 'myRegistrations':
         requireLogin();
-        requireRole(['user', 'volunteer']);
+        requireRole(['user','volunteer']);
         $userDashboardController->myRegistrations();
         break;
 
-   case 'volunteerDashboard':
-    $volunteerController->dashboardg();
-    break;
+ 
+    case 'volunteerDashboard':
+        requireLogin();
+        requireRole('volunteer');
+        $volunteerController->dashboardg();
+        break;
 
     default:
         $auth->login();
